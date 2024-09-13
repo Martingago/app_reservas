@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -25,5 +26,5 @@ public class RoleModel {
     private String role;
 
     @ManyToMany(mappedBy = "roleSet")
-    private Set<UserModel> userSet;
+    private Set<UserModel> userSet = new HashSet<>();
 }

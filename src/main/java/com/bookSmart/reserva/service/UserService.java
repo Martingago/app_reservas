@@ -1,6 +1,5 @@
 package com.bookSmart.reserva.service;
 
-import com.bookSmart.reserva.configuration.SecurityConfig;
 import com.bookSmart.reserva.model.UserModel;
 import com.bookSmart.reserva.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class userService {
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
