@@ -6,6 +6,7 @@ import com.bookSmart.reserva.model.RoleModel;
 import com.bookSmart.reserva.model.UserModel;
 import com.bookSmart.reserva.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -41,7 +42,6 @@ public class UserConverter {
     public UserResponseDTO toResponseDTO(UserModel userModel){
         Set<Long> rolesId = userModel.getRoleSet().stream()
                 .map(RoleModel::getId).collect(Collectors.toSet());
-
         return UserResponseDTO.builder()
                 .id(userModel.getId())
                 .email(userModel.getEmail())

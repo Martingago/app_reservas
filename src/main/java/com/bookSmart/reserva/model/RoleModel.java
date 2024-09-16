@@ -1,15 +1,14 @@
 package com.bookSmart.reserva.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.catalina.User;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -25,6 +24,6 @@ public class RoleModel {
     @Column(name= "role", nullable = false, unique = true)
     private String role;
 
-    @ManyToMany(mappedBy = "roleSet")
-    private Set<UserModel> userSet = new HashSet<>();
+    @ManyToMany(mappedBy = "roleSet",fetch = FetchType.LAZY)
+    private Set<UserModel> userSet = new HashSet<UserModel>();
 }

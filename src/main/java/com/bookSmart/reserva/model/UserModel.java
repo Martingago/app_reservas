@@ -1,15 +1,14 @@
 package com.bookSmart.reserva.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,11 +28,21 @@ public class UserModel {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleModel> roleSet;
+    private Set<RoleModel> roleSet = new HashSet<RoleModel>();
+
+    public void addRole(RoleModel role){
+        this.roleSet.add(role);
+        role.getUserSet().add(this);
+    }
+
+    public void removeRole(RoleModel role){
+        this.roleSet.remove(role);
+        role.getUserSet().remove(this);
+    }
 
 }
