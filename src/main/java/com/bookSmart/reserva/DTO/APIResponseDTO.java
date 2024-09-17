@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class APIResponseDTO {
-    private final boolean status;
+    private final int status;
     private final String message;
-    private final Object object;
+    private final Object data;
 }
