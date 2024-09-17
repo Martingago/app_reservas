@@ -6,6 +6,8 @@ import com.bookSmart.reserva.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleService {
 
@@ -22,5 +24,9 @@ public class RoleService {
     public RoleModel addRol(RoleModel roleModel){
     return roleRepository.save(roleModel);
 }
+
+    public List<RoleModel> getRoles(){
+        return roleRepository.findAll();
+    }
 
 }
