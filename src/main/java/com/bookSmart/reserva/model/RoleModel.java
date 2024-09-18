@@ -7,11 +7,11 @@ import org.apache.catalina.User;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "roles")
 public class RoleModel {

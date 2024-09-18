@@ -1,4 +1,4 @@
-package util;
+package com.bookSmart.reserva.utils;
 
 import com.bookSmart.reserva.DTO.APIResponseDTO;
 import org.springframework.http.HttpStatus;

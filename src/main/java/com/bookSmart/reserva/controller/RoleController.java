@@ -1,6 +1,5 @@
 package com.bookSmart.reserva.controller;
 
-import com.bookSmart.reserva.DTO.APIResponseDTO;
 import com.bookSmart.reserva.DTO.RoleRequestDTO;
 import com.bookSmart.reserva.DTO.RoleResponseDTO;
 import com.bookSmart.reserva.converter.RoleConverter;
@@ -10,11 +9,9 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import util.CustomResponseEntity;
+import com.bookSmart.reserva.utils.CustomResponseEntity;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,8 +35,8 @@ public class RoleController {
         //Busca todos los roles en la Base de datos y los devuelve en forma de Set
         Set<RoleResponseDTO> listRoleResponseDTO = roleService.getRoles()
                 .stream().map(role -> roleConverter.toResponseDto(role)).collect(Collectors.toSet());
-        //Devuelve un ResponseEntity
-        return new CustomResponseEntity(listRoleResponseDTO, HttpStatus.OK);
+
+        return new CustomResponseEntity(listRoleResponseDTO, HttpStatus.OK); //Devuelve un ResponseEntity
     }
 
     /**
@@ -62,15 +59,10 @@ public class RoleController {
      */
     @DeleteMapping("/delete/{id}")
     public CustomResponseEntity deleteRole(@PathVariable("id") Long id){
-        try{
             roleService.deleteRoleById(id);
             String messageResponse = "Rol with id: " + id + " was successfully removed.";
             return new CustomResponseEntity(null, messageResponse,HttpStatus.NO_CONTENT); // 204 el rol ha sido eliminado con éxito
-            // -> 204 no envía cuerpo con el mensaje. Eliminar un rol con éxito no devolverá ningun ResponseEntity. Cambiar por HttpStatus.OK para devolver un ResponseEntity
-        }catch (EntityNotFoundException ex){
-            String messageResponse = "Error, Rol with id " + id + " was not founded";
-            return new CustomResponseEntity(null, messageResponse,HttpStatus.NOT_FOUND); // 404 el rol a eliminar no ha sido encontrado
+            // -> 204 no envía cuerpo con el mensaje. Eliminar un rol con éxito no devolverá ningún ResponseEntity. Cambiar por HttpStatus.OK para devolver un ResponseEntity
         }
-    }
 
 }

@@ -5,8 +5,10 @@ import com.bookSmart.reserva.model.RoleModel;
 import com.bookSmart.reserva.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +26,11 @@ public class RoleService {
      * @return
      */
     public RoleModel addRol(RoleModel roleModel){
-    return roleRepository.save(roleModel);
+        try{
+            return roleRepository.save(roleModel);
+        }catch (DataIntegrityViolationException ex){
+            throw new DataIntegrityViolationException("Error during creating role, Duplicate key entry: " + ex.getMessage());
+        }
 }
 
     public List<RoleModel> getRoles(){
@@ -38,10 +44,7 @@ public class RoleService {
      */
     public RoleModel getRoleById(Long id){
         Optional<RoleModel> optRoleModel = roleRepository.findById(id);
-        if(optRoleModel.isPresent()){
-            return optRoleModel.get();
-        }
-        throw  new EntityNotFoundException("Role with id:" + id + " was not founded");
+       return optRoleModel.orElseThrow(() -> new EntityNotFoundException("Role with id: " + id + " was not founded"));
     }
 
     /**
