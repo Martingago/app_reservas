@@ -29,4 +29,8 @@ private String description;
 @Column(name = "list_directives")
 @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 private Set<DirectiveModel> directiveModelSet;
+
+@Column(name = "list_branches")
+@OneToMany(mappedBy = "businessModel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BranchModel> branchModelSet;
 }

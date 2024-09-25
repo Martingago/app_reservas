@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "directives")
-public class DirectiveModel {
+@Table(name ="employees")
+public class EmployeeModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +23,7 @@ public class DirectiveModel {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private UserModel user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "business_id")
-    private BusinessModel business;
-
-    @Column(name="is_active", nullable = false)
-    private boolean isActive;
+    private UserModel userModel;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -38,5 +31,8 @@ public class DirectiveModel {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", nullable = false)
+    private BranchModel branchModel;
 
 }

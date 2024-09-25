@@ -7,14 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "directives")
-public class DirectiveModel {
+@Table(name = "managers")
+public class ManagerModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,20 +24,17 @@ public class DirectiveModel {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private UserModel user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "business_id")
-    private BusinessModel business;
-
-    @Column(name="is_active", nullable = false)
-    private boolean isActive;
+    private UserModel userModel;
 
     @Column(name = "start_date")
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name="end_date")
     private LocalDate endDate;
 
-
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "managers_branches",
+    joinColumns = @JoinColumn(name = "manager_id"),
+    inverseJoinColumns = @JoinColumn(name = "branch_id"))
+    private Set<BranchModel> branchModelSet;
 }
