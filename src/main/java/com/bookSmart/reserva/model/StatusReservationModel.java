@@ -13,19 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "clients")
-public class ClientModel {
+@Table(name = "status_reservation")
+public class StatusReservationModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private UserModel userModel;
+    @Column(name = "status", nullable = false)
+    private String status;
 
-    @OneToMany(mappedBy = "clientModel", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "statusReservationModel", fetch = FetchType.LAZY)
     private Set<ReservationModel> reservationModelSet;
-
 }

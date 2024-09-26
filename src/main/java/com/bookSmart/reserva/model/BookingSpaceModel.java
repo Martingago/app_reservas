@@ -32,4 +32,7 @@ public class BookingSpaceModel {
     @JoinColumn( name = "booking_status_id", nullable = false)
     private  BookingStatusModel bookingStatus;
 
+    @OneToOne(mappedBy = "bookingSpaceModel", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private ReservationModel reservationModel;
+
 }

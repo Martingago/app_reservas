@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,5 +35,8 @@ public class EmployeeModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", nullable = false)
     private BranchModel branchModel;
+
+    @OneToMany(mappedBy = "employeeModel", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<ReservationModel> reservationModelSet;
 
 }
